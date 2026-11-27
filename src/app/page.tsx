@@ -14,7 +14,7 @@ import { ReceptionHall } from "@/components/ReceptionHall";
 import { Gallery } from "@/components/Gallery";
 import { LocationContact } from "@/components/LocationContact";
 import { Footer } from "@/components/Footer";
-import { SoundControl } from "@/components/SoundControl";
+// SoundControl removed per user request
 import { RiverDivider } from "@/components/RiverDivider";
 import { StickyBookingCTA } from "@/components/StickyBookingCTA";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -42,7 +42,6 @@ export default function Home() {
       <Gallery />
       <LocationContact />
       <Footer />
-      <SoundControl />
       <StickyBookingCTA />
       <ScrollReveal />
     </main>
