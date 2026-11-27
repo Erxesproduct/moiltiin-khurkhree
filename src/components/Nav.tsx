@@ -51,17 +51,7 @@ export function Nav() {
     return () => window.removeEventListener("hashchange", close);
   }, []);
 
-  // Lock body scroll when menu open
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+  // Body scroll lock removed: overflow:hidden on body breaks touch on iOS Safari
 
   const mobileMenu =
     open && typeof document !== "undefined"
@@ -110,6 +100,7 @@ export function Nav() {
                   fontSize: 28,
                   cursor: "pointer",
                   padding: 8,
+                  touchAction: "manipulation",
                 }}
               >
                 <X />
@@ -128,7 +119,6 @@ export function Nav() {
                   key={it.href}
                   href={it.href}
                   onClick={() => {
-                    // close after navigation starts
                     setTimeout(() => setOpen(false), 100);
                   }}
                   style={{
@@ -139,6 +129,7 @@ export function Nav() {
                     padding: "16px 0",
                     borderBottom: "1px solid rgba(255,255,255,0.15)",
                     display: "block",
+                    touchAction: "manipulation",
                   }}
                 >
                   {it.label}
