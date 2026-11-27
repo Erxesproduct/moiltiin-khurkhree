@@ -69,7 +69,12 @@ export function Nav() {
               <a
                 key={it.href}
                 href={it.href}
-                className={`relative text-sm tracking-wide transition-colors py-1 ${
+                onClick={(e) => {
+                  e.preventDefault();
+                  const id = it.href.replace("#", "");
+                  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`relative text-sm tracking-wide transition-colors py-1 cursor-pointer ${
                   scrolled
                     ? "text-darktext hover:text-forest"
                     : "text-softwhite/90 hover:text-softwhite"
@@ -77,7 +82,7 @@ export function Nav() {
               >
                 {it.label}
                 <svg
-                  className={`absolute left-0 -bottom-1 w-full h-2 transition-opacity duration-300 ${
+                  className={`absolute left-0 -bottom-1 w-full h-2 transition-opacity duration-300 pointer-events-none ${
                     isActive ? "opacity-100" : "opacity-0"
                   }`}
                   viewBox="0 0 100 8"
@@ -132,14 +137,20 @@ export function Nav() {
           </div>
           <nav className="flex flex-col gap-5 px-6 mt-6">
             {items.map((it) => (
-              <a
+              <button
                 key={it.href}
-                href={it.href}
-                onClick={() => setOpen(false)}
-                className="font-serif text-2xl border-b border-softwhite/15 pb-3"
+                type="button"
+                onClick={() => {
+                  const id = it.href.replace("#", "");
+                  setOpen(false);
+                  setTimeout(() => {
+                    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                  }, 50);
+                }}
+                className="font-serif text-2xl border-b border-softwhite/15 pb-3 text-left cursor-pointer"
               >
                 {it.label}
-              </a>
+              </button>
             ))}
           </nav>
         </div>
