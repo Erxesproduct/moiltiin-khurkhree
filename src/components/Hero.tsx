@@ -54,6 +54,7 @@ export function Hero() {
               lineHeight: 1.12,
               letterSpacing: "-0.02em",
               textShadow: "0 2px 18px rgba(0,0,0,0.35)",
+              WebkitTextStroke: "1px rgba(0,0,0,0.55)",
             }}
           >
             Байгальд ойрхон,
