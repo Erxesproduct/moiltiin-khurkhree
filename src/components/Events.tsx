@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { resort, eventPackages, additionalServices } from "@/lib/data";
 
 export function Events() {
   return (
@@ -28,12 +29,17 @@ export function Events() {
               талбай, байгалийн орчин, хоолны үйлчилгээг нэг дороос авах
               боломжтой.
             </p>
-            <ul className="mt-8 space-y-3 text-darktext/80">
-              <li>• Байгууллагын амралт, семинар</li>
-              <li>• Гэр бүлийн баяр, тэмдэглэлт өдөр</li>
-              <li>• Найз нөхдийн уулзалт</li>
-              <li>• Спорт, тоглоомын өдөрлөг</li>
+            <p className="mt-6 text-darktext/70">
+              Хүлээн авалтын заал нь {resort.capacity} багтаамжтай.
+            </p>
+            <ul className="mt-6 space-y-2 text-darktext/80">
+              {eventPackages.map((e) => (
+                <li key={e}>• {e}</li>
+              ))}
             </ul>
+            <p className="mt-6 text-sm text-darktext/60">
+              Нэмэлт үйлчилгээ: {additionalServices.join(" · ")}
+            </p>
             <button
               type="button"
               onClick={() => {

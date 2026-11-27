@@ -2,13 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { Calendar, Users, Home, Search } from "lucide-react";
-import { accommodations } from "@/lib/data";
+import { accommodations, resort } from "@/lib/data";
 
 export function BookingPanel() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);
+  const [children, setChildren] = useState(0);
   const [stay, setStay] = useState(accommodations[0].slug);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [extra, setExtra] = useState("");
 
   const selectedAcc = accommodations.find((a) => a.slug === stay);
   const capacityNum = selectedAcc ? parseInt(selectedAcc.guests) || 0 : 0;
@@ -32,7 +36,8 @@ export function BookingPanel() {
     const acc = accommodations.find((a) => a.slug === stay)?.name ?? stay;
     const msg = encodeURIComponent(
       `Сайн байна уу! Мойлтын хүрхрээ амралтын газарт захиалга өгөх хүсэлт:\n` +
-        `Ирэх: ${checkIn}\nБуцах: ${checkOut}\nЗочин: ${guests}\nСууц: ${acc}`
+        `Нэр: ${name}\nУтас: ${phone}\nИрэх: ${checkIn}\nБуцах: ${checkOut}\n` +
+        `Том хүн: ${guests}\nХүүхэд: ${children}\nСууц: ${acc}\nНэмэлт: ${extra}`
     );
     window.open(`https://wa.me/97688676600?text=${msg}`, "_blank");
   };
@@ -108,14 +113,83 @@ export function BookingPanel() {
             </select>
           </div>
         </div>
-        <button
-          type="submit"
-          disabled={!!dateError}
-          className="rounded-full bg-forest text-softwhite px-6 py-3.5 text-sm font-medium hover:bg-moss transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <Search size={16} />
-          Захиалгын хүсэлт илгээх
-        </button>
+        <div className="md:col-span-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex flex-col gap-2">
+            <label className="text-xs uppercase tracking-widest text-moss">Нэр</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="border-b border-forest/20 pb-2 bg-transparent outline-none text-darktext"
+              placeholder="Таны нэр"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-xs uppercase tracking-widest text-moss">Утас</label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="border-b border-forest/20 pb-2 bg-transparent outline-none text-darktext"
+              placeholder="Утасны дугаар"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-xs uppercase tracking-widest text-moss">Хүүхэд</label>
+            <input
+              type="number"
+              min={0}
+              max={10}
+              value={children}
+              onChange={(e) => setChildren(Number(e.target.value))}
+              className="border-b border-forest/20 pb-2 bg-transparent outline-none text-darktext"
+            />
+          </div>
+        </div>
+        <div className="md:col-span-5">
+          <label className="text-xs uppercase tracking-widest text-moss">Нэмэлт хүсэлт</label>
+          <textarea
+            value={extra}
+            onChange={(e) => setExtra(e.target.value)}
+            rows={2}
+            className="w-full border-b border-forest/20 pb-2 bg-transparent outline-none text-darktext resize-none"
+            placeholder="Нэмэлт хүсэлт, тэмдэглэл..."
+          />
+        </div>
+        <div className="md:col-span-5 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-wrap gap-3 text-sm">
+            <a
+              href={resort.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-forest underline underline-offset-4"
+            >
+              WhatsApp
+            </a>
+            <a
+              href={resort.messenger}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-forest underline underline-offset-4"
+            >
+              Messenger
+            </a>
+            <a href={`tel:${resort.phones[0]}`} className="text-forest underline underline-offset-4">
+              Утас
+            </a>
+            <a href={`mailto:${resort.email}`} className="text-forest underline underline-offset-4">
+              И-мэйл
+            </a>
+          </div>
+          <button
+            type="submit"
+            disabled={!!dateError}
+            className="rounded-full bg-forest text-softwhite px-6 py-3.5 text-sm font-medium hover:bg-moss transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Search size={16} />
+            Захиалгын хүсэлт илгээх
+          </button>
+        </div>
       </form>
       {(dateError || overCapacity) && (
         <div className="mt-4 max-w-3xl mx-auto text-center text-sm text-red-700">

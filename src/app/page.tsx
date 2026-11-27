@@ -4,6 +4,8 @@ import { BookingPanel } from "@/components/BookingPanel";
 import { Intro } from "@/components/Intro";
 import { Accommodation } from "@/components/Accommodation";
 import { Experiences } from "@/components/Experiences";
+import { Dining } from "@/components/Dining";
+import { MoiltiinMoments } from "@/components/MoiltiinMoments";
 import { SeasonSelector } from "@/components/SeasonSelector";
 import { DayAtMoiltiin } from "@/components/DayAtMoiltiin";
 import { PlanEscape } from "@/components/PlanEscape";
@@ -27,6 +29,8 @@ export default function Home() {
       <Accommodation />
       <RiverDivider />
       <Experiences />
+      <Dining />
+      <MoiltiinMoments />
       <DayAtMoiltiin />
       <SeasonSelector />
       <PlanEscape />

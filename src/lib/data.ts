@@ -1,16 +1,42 @@
 export const resort = {
   name: "Мойлтын хүрхрээ",
   tagline: "Байгальд ойрхон, өөртөө илүү ойрхон.",
-  location: "Горхи-Тэрэлж байгалийн цогцолборт газар, Тэрэлжийн гүүр",
+  location:
+    "Налайх дүүрэг 1-р хороо, Тэрэлжийн гүүрний зүүн эрэг (гүүр гарахгүй баруун эргээд голын эрэг дээр модон дунд)",
+  phones: ["8867-6600", "9592-6600"],
   phone: "+976 8867 6600",
   whatsapp: "https://wa.me/97688676600",
   viber: "viber://add?number=97688676600",
   messenger: "https://m.me/MoiltiinKhurhree",
+  email: "moiltiinhurhree@gmail.com",
   facebook: "https://www.facebook.com/MoiltiinKhurhree",
   instagram: "https://www.instagram.com/moiltiinkhurhree/",
+  maps: "https://maps.app.goo.gl/JC3tGB1fFzvNyZUA6",
+  capacity: "300 хүн хүртэлх (хүлээн авалтын заал)",
   description:
     "Мойлтын хүрхрээ амралтын газар нь Тэрэлжийн гүүрний наагуур Мойлтын тохой амралтаар салаад, голын эрэг дээр, модон дунд байрладаг. Хамт олноороо, найз нөхдөөрөө болон гэр бүлээрээ амрахад тухтай орон зай.",
 };
+
+export const amenities = [
+  { title: "Ресторан", icon: "UtensilsCrossed" },
+  { title: "Сагсан бөмбөгийн талбай", icon: "CircleDot" },
+  { title: "Гар бөмбөгийн талбай", icon: "Volleyball" },
+  { title: "Ил зогсоол", icon: "Car" },
+  { title: "Хүүхдийн тоглоомын талбай", icon: "Baby" },
+];
+
+export const additionalServices = [
+  "Морь, тэмээ унуулах (захиалгат)",
+  "Зун: Завиар явуулах үйлчилгээ",
+  "Өвөл: Нохой чарга",
+];
+
+export const eventPackages = [
+  "Хонхны баяр",
+  "Дурсамж уулзалт",
+  "Байгууллагын хүлээн авалт",
+  "Энгийн багц",
+];
 
 export type Accommodation = {
   slug: string;
@@ -96,14 +122,30 @@ export const accommodations: Accommodation[] = [
       "Энгийн өрөө нь 2 нарийн ортой. Дотороо шүршүүр болон ариун цэврийн өрөөтэй.",
     amenities: ["Шүршүүр", "Ариун цэврийн өрөө"],
   },
-];
-
-export const amenities = [
-  { title: "Ресторан", icon: "UtensilsCrossed" },
-  { title: "Сагсан бөмбөгийн талбай", icon: "CircleDot" },
-  { title: "Гар бөмбөгийн талбай", icon: "Volleyball" },
-  { title: "Ил зогсоол", icon: "Car" },
-  { title: "Хүүхдийн тоглоомын талбай", icon: "Baby" },
+  {
+    slug: "riverside-109",
+    name: "Голын эргийн 109",
+    image: "/images/view2.jpg",
+    guests: "18 зочин",
+    beds: "7 + 1 + 10 ор",
+    area: "2 давхар",
+    price: "Үнэ лавлах",
+    description:
+      "2 давхар, 3 унтлагын өрөөтэй (7, 1, 10 ор). 1-р давхарт проектор, яригч суурьлагдсан том заалтай — хурлын заал болгон ашиглаж болно. Хамт олонд тохиромжтой.",
+    amenities: ["Хурлын заал", "Проектор", "Яригч", "Голын эрэг"],
+  },
+  {
+    slug: "riverside-106",
+    name: "Голын эргийн 106",
+    image: "/images/view1.jpg",
+    guests: "Хүчин чадал лавлах",
+    beds: "Тодорхойгүй",
+    area: "Голын эрэг",
+    price: "Үнэ лавлах",
+    description:
+      "Голын эрэг дээрх байшин. Дэлгэрэнгүй мэдээллийг утсаар лавлана уу.",
+    amenities: ["Голын эрэг", "Байгалийн орчин"],
+  },
 ];
 
 export const experiences = [

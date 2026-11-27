@@ -18,7 +18,7 @@ export function LocationContact() {
           <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-ivory">
             <iframe
               title="Газрын зураг"
-              src="https://www.google.com/maps?q=Terelj+National+Park+Mongolia&output=embed"
+              src="https://www.google.com/maps?q=Moiltiin+Khurkhree+Terelj&output=embed"
               className="absolute inset-0 w-full h-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -40,8 +40,20 @@ export function LocationContact() {
                 <p className="text-xs uppercase tracking-widest text-moss mb-1">
                   Утас
                 </p>
-                <a href={`tel:${resort.phone.replace(/\s/g, "")}`} className="text-darktext hover:text-forest">
-                  {resort.phone}
+                {resort.phones.map((p) => (
+                  <a
+                    key={p}
+                    href={`tel:${p.replace(/-/g, "")}`}
+                    className="block text-darktext hover:text-forest"
+                  >
+                    {p}
+                  </a>
+                ))}
+                <a
+                  href={`mailto:${resort.email}`}
+                  className="block text-darktext hover:text-forest mt-1"
+                >
+                  {resort.email}
                 </a>
               </div>
             </div>
@@ -97,7 +109,7 @@ export function LocationContact() {
               </a>
             </div>
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=Terelj+National+Park+Mongolia"
+              href={resort.maps}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block mt-4 rounded-full bg-forest text-softwhite px-6 py-3 text-sm hover:bg-moss transition-colors w-fit"
