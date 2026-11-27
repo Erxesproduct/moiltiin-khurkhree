@@ -57,11 +57,9 @@ export function Nav() {
           <Image
             src="/images/logo.png"
             alt="Мойлтын хүрхрээ"
-            width={160}
-            height={40}
-            className={`h-9 md:h-11 w-auto object-contain transition-all duration-300 ${
-              scrolled ? "brightness-0" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
-            }`}
+            width={480}
+            height={170}
+            className="h-9 md:h-11 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-all duration-300"
             priority
           />
         </Link>
