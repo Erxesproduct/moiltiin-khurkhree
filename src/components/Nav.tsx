@@ -159,13 +159,14 @@ export function Nav() {
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
           style={{
             position: "fixed",
-            top: 0, left: 0, right: 0, bottom: 0,
+            top: 0, left: 0, width: "100%", height: "100%",
             zIndex: 9999,
             backgroundColor: "#243D32",
             color: "#FFFDF8",
             overflowY: "auto",
             WebkitOverflowScrolling: "touch",
             touchAction: "manipulation",
+            overscrollBehavior: "contain",
           }}
         >
           <div style={{ padding: "24px 24px 8px" }}>
