@@ -62,12 +62,18 @@ export function Accommodation() {
             key={a.slug}
             className="snap-start shrink-0 w-[300px] md:w-[360px] group"
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+            <button
+              type="button"
+              onClick={() => setSelected(a.slug)}
+              className="block w-full relative aspect-[4/5] overflow-hidden rounded-sm cursor-pointer touch-manipulation"
+              style={{ touchAction: "manipulation" }}
+              aria-label={`${a.name} дэлгэрэнгүй`}
+            >
               <Image
                 src={a.image}
                 alt={a.name}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
                 style={{ objectPosition: "center 40%" }}
               />
               <div className="absolute bottom-4 left-4">
@@ -75,7 +81,7 @@ export function Accommodation() {
                   {a.price === "Үнэ лавлах" ? "Үнэ лавлах" : `${a.price} USD / хоног`}
                 </span>
               </div>
-            </div>
+            </button>
             <div className="mt-5">
               <h3 className="font-serif text-2xl text-forest">{a.name}</h3>
               <div className="flex items-center gap-4 text-sm text-darktext/70 mt-2">
