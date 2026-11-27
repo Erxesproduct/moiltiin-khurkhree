@@ -72,7 +72,7 @@ export function Accommodation() {
               />
               <div className="absolute bottom-4 left-4">
                 <span className="bg-softwhite/90 text-forest text-xs px-3 py-1 rounded-full">
-                  {a.price} / хоног
+                  {a.price === "Үнэ лавлах" ? "Үнэ лавлах" : `${a.price} USD / хоног`}
                 </span>
               </div>
             </div>
@@ -164,8 +164,11 @@ export function Accommodation() {
                     <Maximize2 size={14} /> {acc.area}
                   </span>
                 </div>
-                <p className="text-forest font-medium mb-4">
-                  {acc.price} / хоног
+                <p className="text-forest font-medium mb-1">
+                  {acc.price === "Үнэ лавлах" ? "Үнэ лавлах" : `${acc.price} USD / хоног`}
+                </p>
+                <p className="text-xs text-darktext/50 mb-4">
+                  Монгол төгрөгөөр захиалга баталгаажих үед тохирогдоно.
                 </p>
                 <p className="text-darktext/80 leading-relaxed mb-4">
                   {acc.description}

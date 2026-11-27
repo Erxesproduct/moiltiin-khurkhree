@@ -59,7 +59,9 @@ export function PlanEscape() {
                   className="flex items-center justify-between border-b border-forest/15 pb-3"
                 >
                   <span className="text-darktext">{a.name}</span>
-                  <span className="text-forest font-medium">{a.price}/хоног</span>
+                  <span className="text-forest font-medium">
+                    {a.price === "Үнэ лавлах" ? "Үнэ лавлах" : `${a.price} USD / хоног`}
+                  </span>
                 </li>
               ))}
             </ul>
