@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { X, Phone, MoreVertical } from "lucide-react";
@@ -143,7 +144,7 @@ export function Nav() {
               className={`lg:hidden flex items-center gap-2 px-4 py-2 rounded-full touch-manipulation ${
                 scrolled
                   ? "bg-forest text-softwhite"
-                  : "bg-softwhite/20 text-softwhite backdrop-blur-sm"
+                  : "bg-softwhite/20 text-softwhite"
               }`}
               style={{ touchAction: "manipulation", minHeight: 44 }}
             >
@@ -152,22 +153,37 @@ export function Nav() {
             </button>
           </div>
         </div>
-        {open && (
-          <nav className="lg:hidden bg-forest px-5 py-4 flex flex-col gap-0">
+      </header>
+      {open && typeof document !== "undefined" && createPortal(
+        <div
+          onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
+          style={{
+            position: "fixed",
+            top: 0, left: 0, right: 0, bottom: 0,
+            zIndex: 9999,
+            backgroundColor: "#243D32",
+            color: "#FFFDF8",
+            overflowY: "auto",
+            WebkitOverflowScrolling: "touch",
+            touchAction: "manipulation",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px" }}>
+            <Image src="/images/logo.png" alt="Мойлтын хүрхрээ" width={120} height={42} className="h-8 w-auto object-contain brightness-0 invert" />
+            <button type="button" onClick={() => setOpen(false)} aria-label="Хаах" style={{ background: "transparent", border: "none", color: "#FFFDF8", fontSize: 28, cursor: "pointer", padding: 8, touchAction: "manipulation" }}>
+              <X />
+            </button>
+          </div>
+          <nav style={{ display: "flex", flexDirection: "column", padding: "8px 24px 40px" }}>
             {items.map((it) => (
-              <a
-                key={it.href}
-                href={it.href}
-                onClick={() => setOpen(false)}
-                className="font-serif text-xl text-softwhite border-b border-softwhite/15 py-3 block touch-manipulation"
-                style={{ touchAction: "manipulation" }}
-              >
+              <a key={it.href} href={it.href} onClick={() => setTimeout(() => setOpen(false), 100)} style={{ fontFamily: "var(--font-lora), serif", fontSize: 24, color: "#FFFDF8", textDecoration: "none", padding: "16px 0", borderBottom: "1px solid rgba(255,255,255,0.15)", display: "block", touchAction: "manipulation" }}>
                 {it.label}
               </a>
             ))}
           </nav>
-        )}
-      </header>
+        </div>,
+        document.body
+      )}
     </>
   );
 }
