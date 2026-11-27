@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, Phone } from "lucide-react";
+import { X, Phone, MoreVertical } from "lucide-react";
 import { resort } from "@/lib/data";
 
 const items = [
@@ -236,10 +236,15 @@ export function Nav() {
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label="Цэс"
-              className={`lg:hidden p-3 -mr-2 touch-manipulation ${scrolled ? "text-forest" : "text-softwhite"}`}
-              style={{ touchAction: "manipulation", minWidth: 48, minHeight: 48 }}
+              className={`lg:hidden flex items-center gap-2 px-4 py-2 rounded-full touch-manipulation ${
+                scrolled
+                  ? "bg-forest text-softwhite"
+                  : "bg-softwhite/20 text-softwhite backdrop-blur-sm"
+              }`}
+              style={{ touchAction: "manipulation", minHeight: 44 }}
             >
-              {open ? <X /> : <Menu />}
+              {open ? <X size={18} /> : <MoreVertical size={18} />}
+              <span className="text-sm font-medium">Цэс</span>
             </button>
           </div>
         </div>
