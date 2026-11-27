@@ -21,8 +21,9 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-softwhite paper pb-24 md:pb-0">
+    <>
       <Nav />
+      <main className="min-h-screen bg-softwhite paper pb-24 md:pb-0">
       <Hero />
       <BookingPanel />
       <RiverDivider />
@@ -45,5 +46,6 @@ export default function Home() {
       <StickyBookingCTA />
       <ScrollReveal />
     </main>
+    </>
   );
 }

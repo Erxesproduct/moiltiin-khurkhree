@@ -146,7 +146,7 @@ export function Nav() {
       <header
         className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-500 ${
           scrolled
-            ? "bg-ivory/85 backdrop-blur-md shadow-sm py-2.5"
+            ? "bg-ivory/95 shadow-sm py-2.5"
             : "bg-transparent py-5"
         }`}
       >
