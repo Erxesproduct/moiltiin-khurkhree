@@ -33,7 +33,7 @@ export function Accommodation() {
               Таны амрах орон зай.
             </h2>
           </div>
-          <div className="flex gap-3">
+          <div className="hidden md:flex gap-3">
             <button
               onClick={() => scroll(-1)}
               className="w-11 h-11 rounded-full border border-forest/30 flex items-center justify-center hover:bg-forest hover:text-softwhite transition-colors"
@@ -54,8 +54,8 @@ export function Accommodation() {
 
       <div
         ref={scroller}
-        className="flex gap-6 overflow-x-auto no-scrollbar px-6 md:px-[calc((100vw-80rem)/2+1.5rem)] pb-6 snap-x snap-mandatory"
-        style={{ touchAction: "pan-x", WebkitOverflowScrolling: "touch" }}
+        className="flex flex-col md:flex-row gap-6 px-6 md:px-[calc((100vw-80rem)/2+1.5rem)] pb-6 md:overflow-x-auto no-scrollbar md:snap-x md:snap-mandatory"
+        style={{ WebkitOverflowScrolling: "touch" }}
       >
         {accommodations.map((a) => (
           <article
@@ -94,8 +94,13 @@ export function Accommodation() {
               </p>
               <button
                 type="button"
-                onClick={() => setSelected(a.slug)}
-                className="mt-4 inline-flex items-center gap-1 text-sm text-forest underline underline-offset-4 hover:text-moss cursor-pointer py-2"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setSelected(a.slug);
+                }}
+                className="mt-4 inline-flex items-center justify-center gap-1 text-sm text-softwhite bg-forest hover:bg-moss rounded-full px-5 py-2.5 cursor-pointer touch-manipulation"
+                style={{ touchAction: "manipulation", minHeight: 44 }}
               >
                 Дэлгэрэнгүй үзэх →
               </button>
