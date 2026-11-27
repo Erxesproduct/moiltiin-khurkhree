@@ -59,7 +59,9 @@ export function Nav() {
             alt="Мойлтын хүрхрээ"
             width={160}
             height={40}
-            className="h-8 md:h-10 w-auto object-contain"
+            className={`h-9 md:h-11 w-auto object-contain transition-all duration-300 ${
+              scrolled ? "brightness-0" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+            }`}
             priority
           />
         </Link>
@@ -120,7 +122,8 @@ export function Nav() {
             Захиалах
           </a>
           <button
-            className={`lg:hidden ${scrolled ? "text-forest" : "text-softwhite"}`}
+            type="button"
+            className={`lg:hidden p-2 -mr-2 ${scrolled ? "text-forest" : "text-softwhite"}`}
             onClick={() => setOpen((v) => !v)}
             aria-label="Цэс"
           >
@@ -130,7 +133,7 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="lg:hidden fixed inset-0 top-0 bg-forest text-softwhite z-40 flex flex-col">
+        <div className="lg:hidden fixed inset-0 top-0 bg-forest text-softwhite z-[60] flex flex-col">
           <div className="flex items-center justify-between px-6 py-5">
             <span className="font-serif text-xl">Мойлтын хүрхрээ</span>
             <button onClick={() => setOpen(false)} aria-label="Хаах">
