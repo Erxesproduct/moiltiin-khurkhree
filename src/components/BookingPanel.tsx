@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, Users, Home, Search } from "lucide-react";
 import { accommodations } from "@/lib/data";
 
@@ -9,6 +9,23 @@ export function BookingPanel() {
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);
   const [stay, setStay] = useState(accommodations[0].slug);
+
+  const selectedAcc = accommodations.find((a) => a.slug === stay);
+  const capacityNum = selectedAcc ? parseInt(selectedAcc.guests) || 0 : 0;
+  const overCapacity = capacityNum > 0 && guests > capacityNum;
+  const dateError =
+    checkIn && checkOut && new Date(checkOut) <= new Date(checkIn)
+      ? "Буцах өдөр ирэх өдрөөс хойш байх ёстой."
+      : "";
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const slug = (e as CustomEvent).detail;
+      if (slug) setStay(slug);
+    };
+    window.addEventListener("selectStay", handler);
+    return () => window.removeEventListener("selectStay", handler);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,15 +110,25 @@ export function BookingPanel() {
         </div>
         <button
           type="submit"
-          className="rounded-full bg-forest text-softwhite px-6 py-3.5 text-sm font-medium hover:bg-moss transition-colors flex items-center justify-center gap-2"
+          disabled={!!dateError}
+          className="rounded-full bg-forest text-softwhite px-6 py-3.5 text-sm font-medium hover:bg-moss transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Search size={16} />
-          Боломж шалгах
+          Захиалгын хүсэлт илгээх
         </button>
       </form>
+      {(dateError || overCapacity) && (
+        <div className="mt-4 max-w-3xl mx-auto text-center text-sm text-red-700">
+          {dateError}
+          {overCapacity && !dateError && (
+            <>Сонгосон сууц {capacityNum} зочин багтаах бөгөөд та {guests} зочин оруулсан байна.</>
+          )}
+        </div>
+      )}
       <p className="text-center text-xs text-darktext/60 mt-4 max-w-3xl mx-auto">
         Захиалгын хүсэлт WhatsApp-аар илгээгдэнэ. Баталгаажсан захиалга, үнэ, сул
-        өрөөний мэдээллийг манай баг хариу өгнө.
+        өрөөний мэдээллийг манай баг хариу өгнө. Сонгосон сууцны үнэ нь 1 хоногийн
+        үнэ бөгөөд баталгаажсан захиалгын үед эцсийн дүн тохирогдоно.
       </p>
     </section>
   );

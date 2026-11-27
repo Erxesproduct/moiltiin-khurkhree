@@ -111,7 +111,7 @@ export const experiences = [
   { title: "Голын эрэгт амрах", image: "/images/view2.jpg" },
   { title: "Гэр бүлээрээ цаг өнгөрүүлэх", image: "/images/intro.jpg" },
   { title: "Найзуудтайгаа амрах", image: "/images/hero.jpg" },
-  { title: "Амтат хоол зооглох", image: "/images/summer-house.jpg" },
+  { title: "Амтат хоол зооглох", image: "/images/intro.jpg" },
   { title: "Спорт, чөлөөт цаг", image: "/images/view1.jpg" },
 ];
 

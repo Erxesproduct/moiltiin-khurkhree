@@ -16,9 +16,14 @@ export function SeasonSelector() {
           src={s.image}
           alt={s.title}
           fill
-          className="object-cover transition-opacity duration-700"
+          className="object-cover transition-all duration-1000"
+          style={{ objectPosition: "center 45%" }}
         />
-        <div className="absolute inset-0 bg-black/45" />
+        <div
+          className="absolute inset-0 transition-colors duration-1000"
+          style={{ backgroundColor: s.accent, opacity: 0.25, mixBlendMode: "multiply" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="max-w-2xl">

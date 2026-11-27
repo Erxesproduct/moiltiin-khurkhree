@@ -6,16 +6,18 @@ import { Menu, X, Phone } from "lucide-react";
 import { resort } from "@/lib/data";
 
 const items = [
-  { href: "#about", label: "Бидний тухай" },
-  { href: "#stay", label: "Байрлах" },
-  { href: "#experience", label: "Амралтын мэдрэмж" },
-  { href: "#events", label: "Арга хэмжээ" },
-  { href: "#gallery", label: "Зургийн цомог" },
+  { href: "#about", label: "Мойлтын тухай" },
+  { href: "#stay", label: "Амрах сууц" },
+  { href: "#experience", label: "Мэдрэмж" },
+  { href: "#events", label: "Хамтдаа" },
+  { href: "#gallery", label: "Дурсамж" },
+  { href: "#booking", label: "Захиалах" },
 ];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -24,18 +26,35 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const ids = items.map((i) => i.href.replace("#", ""));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-ivory/90 backdrop-blur-md shadow-sm py-3"
+          ? "bg-ivory/85 backdrop-blur-md shadow-sm py-2.5"
           : "bg-transparent py-5"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 flex items-center justify-between gap-6">
-        <Link href="/" className="flex items-center gap-3">
+      <div className="mx-auto max-w-7xl px-5 md:px-6 flex items-center justify-between gap-4">
+        <Link href="/" className="flex items-center gap-3 shrink-0">
           <span
-            className={`font-serif text-xl tracking-wide ${
+            className={`font-serif text-lg md:text-xl tracking-wide transition-colors ${
               scrolled ? "text-forest" : "text-softwhite"
             }`}
           >
@@ -43,37 +62,55 @@ export function Nav() {
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
-          {items.map((it) => (
-            <a
-              key={it.href}
-              href={it.href}
-              className={`text-sm tracking-wide transition-colors ${
-                scrolled
-                  ? "text-darktext hover:text-forest"
-                  : "text-softwhite/90 hover:text-softwhite"
-              }`}
-            >
-              {it.label}
-            </a>
-          ))}
+        <nav className="hidden lg:flex items-center gap-7">
+          {items.map((it) => {
+            const isActive = active === it.href.replace("#", "");
+            return (
+              <a
+                key={it.href}
+                href={it.href}
+                className={`relative text-sm tracking-wide transition-colors py-1 ${
+                  scrolled
+                    ? "text-darktext hover:text-forest"
+                    : "text-softwhite/90 hover:text-softwhite"
+                } ${isActive ? (scrolled ? "text-forest" : "text-softwhite") : ""}`}
+              >
+                {it.label}
+                <svg
+                  className={`absolute left-0 -bottom-1 w-full h-2 transition-opacity duration-300 ${
+                    isActive ? "opacity-100" : "opacity-0"
+                  }`}
+                  viewBox="0 0 100 8"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 4 Q 25 0, 50 4 T 100 4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </a>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-3">
           <a
-            href={resort.whatsapp}
+            href={`tel:${resort.phone.replace(/\s/g, "")}`}
             className={`hidden md:inline-flex items-center gap-2 text-sm ${
               scrolled ? "text-forest" : "text-softwhite"
             }`}
           >
-            <Phone size={16} />
-            {resort.phone}
+            <Phone size={15} />
+            <span className="hidden xl:inline">{resort.phone}</span>
           </a>
           <a
             href="#booking"
-            className="rounded-full bg-forest text-softwhite px-5 py-2.5 text-sm font-medium hover:bg-moss transition-colors"
+            className="rounded-full bg-forest text-softwhite px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-medium hover:bg-moss transition-colors"
           >
-            Амралтаа захиалах
+            Захиалах
           </a>
           <button
             className={`lg:hidden ${scrolled ? "text-forest" : "text-softwhite"}`}
@@ -85,7 +122,6 @@ export function Nav() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {open && (
         <div className="lg:hidden fixed inset-0 top-0 bg-forest text-softwhite z-40 flex flex-col">
           <div className="flex items-center justify-between px-6 py-5">
@@ -94,24 +130,17 @@ export function Nav() {
               <X />
             </button>
           </div>
-          <nav className="flex flex-col gap-6 px-6 mt-8">
+          <nav className="flex flex-col gap-5 px-6 mt-6">
             {items.map((it) => (
               <a
                 key={it.href}
                 href={it.href}
                 onClick={() => setOpen(false)}
-                className="font-serif text-3xl"
+                className="font-serif text-2xl border-b border-softwhite/15 pb-3"
               >
                 {it.label}
               </a>
             ))}
-            <a
-              href="#booking"
-              onClick={() => setOpen(false)}
-              className="mt-6 inline-flex w-fit rounded-full bg-softwhite text-forest px-6 py-3"
-            >
-              Амралтаа захиалах
-            </a>
           </nav>
         </div>
       )}

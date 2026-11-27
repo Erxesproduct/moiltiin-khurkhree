@@ -2,8 +2,19 @@ import Image from "next/image";
 
 export function Intro() {
   return (
-    <section id="about" className="py-28 md:py-40 px-6">
-      <div className="mx-auto max-w-7xl">
+    <section id="about" className="py-28 md:py-40 px-6 relative overflow-hidden">
+      <svg
+        className="absolute right-0 top-0 w-1/2 h-full text-moss/10 pointer-events-none"
+        viewBox="0 0 400 600"
+        preserveAspectRatio="xMaxYMin slice"
+        aria-hidden
+      >
+        <path
+          d="M0 600 L 80 420 L 140 470 L 220 300 L 300 360 L 400 180 L 400 600 Z"
+          fill="currentColor"
+        />
+      </svg>
+      <div className="mx-auto max-w-7xl relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5">
             <p className="text-xs tracking-[0.3em] uppercase text-moss mb-6">
@@ -27,6 +38,7 @@ export function Intro() {
                 alt="Байгалийн сайхан"
                 fill
                 className="object-cover"
+                style={{ objectPosition: "center 40%" }}
               />
             </div>
             <div className="absolute -bottom-10 -left-6 md:-left-12 w-40 md:w-56 aspect-[3/4] overflow-hidden rounded-sm shadow-2xl border-4 border-softwhite">
@@ -35,6 +47,7 @@ export function Intro() {
                 alt="Голын эрэг"
                 fill
                 className="object-cover"
+                style={{ objectPosition: "center 40%" }}
               />
             </div>
           </div>
