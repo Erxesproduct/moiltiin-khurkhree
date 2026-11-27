@@ -1,9 +1,9 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Phone } from "lucide-react";
+import Link from "next/link";
+import { Phone } from "lucide-react";
 import { resort } from "@/lib/data";
 
 const items = [
@@ -17,7 +17,6 @@ const items = [
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
 
   useEffect(() => {
@@ -44,132 +43,72 @@ export function Nav() {
     return () => observer.disconnect();
   }, []);
 
-  // Close mobile menu on hash change
-  useEffect(() => {
-    const close = () => setOpen(false);
-    window.addEventListener("hashchange", close);
-    return () => window.removeEventListener("hashchange", close);
-  }, []);
-
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-ivory/95 shadow-sm py-2.5"
-          : "bg-transparent py-5"
+      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white shadow-md" : "bg-white/95 backdrop-blur-sm shadow-sm"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-5 md:px-6 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3 shrink-0">
+      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-3">
+        <Link href="/" className="shrink-0">
           <Image
             src="/images/logo.png"
             alt="Мойлтын хүрхрээ"
             width={480}
             height={170}
-            className={`h-8 md:h-10 w-auto object-contain ${scrolled ? "" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"}`}
+            className="h-8 md:h-10 w-auto object-contain"
             priority
           />
         </Link>
-
-        <nav className="hidden lg:flex items-center gap-7">
-          {items.map((it) => {
-            const isActive = active === it.href.replace("#", "");
-            return (
-              <a
-                key={it.href}
-                href={it.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const id = it.href.replace("#", "");
-                  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className={`relative text-sm tracking-wide transition-colors py-1 cursor-pointer ${
-                  scrolled
-                    ? "text-darktext hover:text-forest"
-                    : "text-softwhite/90 hover:text-softwhite"
-                } ${isActive ? (scrolled ? "text-forest" : "text-softwhite") : ""}`}
-              >
-                {it.label}
-                <svg
-                  className={`absolute left-0 -bottom-1 w-full h-2 transition-opacity duration-300 pointer-events-none ${
-                    isActive ? "opacity-100" : "opacity-0"
-                  }`}
-                  viewBox="0 0 100 8"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M0 4 Q 25 0, 50 4 T 100 4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </a>
-            );
-          })}
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <a
-            href={`tel:${resort.phone.replace(/\s/g, "")}`}
-            className={`hidden md:inline-flex items-center gap-2 text-sm ${
-              scrolled ? "text-forest" : "text-softwhite"
-            }`}
-          >
-            <Phone size={15} />
-            <span className="hidden xl:inline">{resort.phone}</span>
-          </a>
-          <a
-            href="#booking"
-            className="rounded-full bg-forest text-softwhite px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-medium hover:bg-moss transition-colors"
-          >
-            Захиалах
-          </a>
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Цэс"
-            className={`lg:hidden p-3 -mr-2 touch-manipulation ${scrolled ? "text-forest" : "text-softwhite"}`}
-            style={{ touchAction: "manipulation", minWidth: 44, minHeight: 44 }}
-          >
-            {open ? <X /> : <Menu />}
-          </button>
-        </div>
+        <a
+          href={`tel:${resort.phones[0]}`}
+          className="hidden md:inline-flex items-center gap-2 text-sm text-forest"
+        >
+          <Phone size={15} />
+          <span>{resort.phones[0]}</span>
+        </a>
+        <a
+          href="#booking"
+          className="rounded-lg bg-forest text-softwhite px-4 md:px-5 py-2 text-sm font-medium hover:bg-moss transition-colors"
+        >
+          Захиалах
+        </a>
       </div>
 
-      {open && (
-        <div
-          className="lg:hidden fixed inset-0 top-0 bg-forest text-softwhite z-[9999] flex flex-col"
-          style={{ touchAction: "manipulation", overflowY: "auto", WebkitOverflowScrolling: "touch" }}
-        >
-          <div className="flex items-center justify-between px-6 py-5">
-            <span className="font-serif text-xl">Мойлтын хүрхрээ</span>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label="Хаах"
-              style={{ touchAction: "manipulation", background: "transparent", border: "none", color: "#FFFDF8", fontSize: 24, cursor: "pointer" }}
+      {/* Mobile: horizontal scrollable nav */}
+      <nav className="lg:hidden flex gap-2 overflow-x-auto px-4 pb-3 no-scrollbar">
+        {items.map((it) => (
+          <a
+            key={it.href}
+            href={it.href}
+            className={`shrink-0 text-xs px-3 py-1.5 rounded-md whitespace-nowrap ${
+              scrolled
+                ? "bg-forest/10 text-forest"
+                : "bg-gray-100 text-gray-700"
+            }`}
+          >
+            {it.label}
+          </a>
+        ))}
+      </nav>
+
+      {/* Desktop nav */}
+      <nav className="hidden lg:flex mx-auto max-w-7xl px-6 pb-3 items-center gap-6">
+        {items.map((it) => {
+          const isActive = active === it.href.replace("#", "");
+          return (
+            <a
+              key={it.href}
+              href={it.href}
+              className={`relative text-sm tracking-wide transition-colors py-1 cursor-pointer ${
+                isActive ? "text-forest font-medium" : "text-gray-600 hover:text-forest"
+              }`}
             >
-              <X />
-            </button>
-          </div>
-          <nav className="flex flex-col gap-0 px-6">
-            {items.map((it) => (
-              <a
-                key={it.href}
-                href={it.href}
-                onClick={() => setOpen(false)}
-                className="font-serif text-2xl border-b border-softwhite/15 py-4 block touch-manipulation"
-                style={{ touchAction: "manipulation", color: "#FFFDF8", textDecoration: "none" }}
-              >
-                {it.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      )}
+              {it.label}
+            </a>
+          );
+        })}
+      </nav>
     </header>
   );
 }
-
