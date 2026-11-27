@@ -168,10 +168,13 @@ export function Nav() {
             touchAction: "manipulation",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px" }}>
-            <Image src="/images/logo.png" alt="Мойлтын хүрхрээ" width={120} height={42} className="h-8 w-auto object-contain brightness-0 invert" />
-            <button type="button" onClick={() => setOpen(false)} aria-label="Хаах" style={{ background: "transparent", border: "none", color: "#FFFDF8", fontSize: 28, cursor: "pointer", padding: 8, touchAction: "manipulation" }}>
-              <X />
+          <div style={{ padding: "24px 24px 8px" }}>
+            <p style={{ fontFamily: "var(--font-lora), serif", fontSize: 22, color: "#FFFDF8", margin: 0 }}>Мойлтын хүрхрээ</p>
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", margin: "4px 0 0", letterSpacing: "0.1em", textTransform: "uppercase" }}>Цэс</p>
+          </div>
+          <div style={{ display: "flex", justifyContent: "flex-end", padding: "0 24px 8px" }}>
+            <button type="button" onClick={() => setOpen(false)} aria-label="Хаах" style={{ background: "rgba(255,255,255,0.15)", border: "none", color: "#FFFDF8", fontSize: 16, cursor: "pointer", padding: "8px 16px", borderRadius: 999, touchAction: "manipulation", fontWeight: 600 }}>
+              ✕ Хаах
             </button>
           </div>
           <nav style={{ display: "flex", flexDirection: "column", padding: "8px 24px 40px" }}>
