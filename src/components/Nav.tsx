@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, Phone } from "lucide-react";
 import { resort } from "@/lib/data";
 
@@ -53,13 +54,14 @@ export function Nav() {
     >
       <div className="mx-auto max-w-7xl px-5 md:px-6 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3 shrink-0">
-          <span
-            className={`font-serif text-lg md:text-xl tracking-wide transition-colors ${
-              scrolled ? "text-forest" : "text-softwhite"
-            }`}
-          >
-            Мойлтын хүрхрээ
-          </span>
+          <Image
+            src="/images/logo.png"
+            alt="Мойлтын хүрхрээ"
+            width={160}
+            height={40}
+            className="h-8 md:h-10 w-auto object-contain"
+            priority
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7">
