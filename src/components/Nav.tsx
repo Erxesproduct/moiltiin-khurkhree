@@ -27,6 +27,13 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close mobile menu on hash change (avoids unmount-during-click)
+  useEffect(() => {
+    const close = () => setOpen(false);
+    window.addEventListener("hashchange", close);
+    return () => window.removeEventListener("hashchange", close);
+  }, []);
+
   useEffect(() => {
     const ids = items.map((i) => i.href.replace("#", ""));
     const observer = new IntersectionObserver(
@@ -46,7 +53,7 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-500 ${
         scrolled
           ? "bg-ivory/85 backdrop-blur-md shadow-sm py-2.5"
           : "bg-transparent py-5"
@@ -140,20 +147,13 @@ export function Nav() {
           </div>
           <nav className="flex flex-col gap-5 px-6 mt-6">
             {items.map((it) => (
-              <button
+              <a
                 key={it.href}
-                type="button"
-                onClick={() => {
-                  const id = it.href.replace("#", "");
-                  setOpen(false);
-                  setTimeout(() => {
-                    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-                  }, 50);
-                }}
-                className="font-serif text-2xl border-b border-softwhite/15 pb-3 text-left cursor-pointer"
+                href={it.href}
+                className="font-serif text-2xl border-b border-softwhite/15 pb-3 cursor-pointer"
               >
                 {it.label}
-              </button>
+              </a>
             ))}
           </nav>
         </div>
