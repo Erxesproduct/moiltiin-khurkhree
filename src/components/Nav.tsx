@@ -67,6 +67,9 @@ export function Nav() {
     open && typeof document !== "undefined"
       ? createPortal(
           <div
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setOpen(false);
+            }}
             style={{
               position: "fixed",
               top: 0,
@@ -78,6 +81,7 @@ export function Nav() {
               color: "#FFFDF8",
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",
+              touchAction: "manipulation",
             }}
           >
             <div
@@ -232,7 +236,8 @@ export function Nav() {
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label="Цэс"
-              className={`lg:hidden p-2 -mr-2 ${scrolled ? "text-forest" : "text-softwhite"}`}
+              className={`lg:hidden p-3 -mr-2 touch-manipulation ${scrolled ? "text-forest" : "text-softwhite"}`}
+              style={{ touchAction: "manipulation", minWidth: 48, minHeight: 48 }}
             >
               {open ? <X /> : <Menu />}
             </button>
