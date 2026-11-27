@@ -21,7 +21,7 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-softwhite paper overflow-x-hidden">
+    <main className="min-h-screen bg-softwhite paper">
       <Nav />
       <Hero />
       <BookingPanel />

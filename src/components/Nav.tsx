@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { createPortal } from "react-dom";
 import Image from "next/image";
+import Link from "next/link";
 import { Menu, X, Phone } from "lucide-react";
 import { resort } from "@/lib/data";
 
@@ -27,13 +28,6 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on hash change (avoids unmount-during-click)
-  useEffect(() => {
-    const close = () => setOpen(false);
-    window.addEventListener("hashchange", close);
-    return () => window.removeEventListener("hashchange", close);
-  }, []);
-
   useEffect(() => {
     const ids = items.map((i) => i.href.replace("#", ""));
     const observer = new IntersectionObserver(
@@ -51,114 +45,201 @@ export function Nav() {
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-500 ${
-        scrolled
-          ? "bg-ivory/85 backdrop-blur-md shadow-sm py-2.5"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="mx-auto max-w-7xl px-5 md:px-6 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3 shrink-0">
-          <Image
-            src="/images/logo.png"
-            alt="Мойлтын хүрхрээ"
-            width={480}
-            height={170}
-            className="h-9 md:h-11 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-all duration-300"
-            priority
-          />
-        </Link>
+  useEffect(() => {
+    const close = () => setOpen(false);
+    window.addEventListener("hashchange", close);
+    return () => window.removeEventListener("hashchange", close);
+  }, []);
 
-        <nav className="hidden lg:flex items-center gap-7">
-          {items.map((it) => {
-            const isActive = active === it.href.replace("#", "");
-            return (
-              <a
-                key={it.href}
-                href={it.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const id = it.href.replace("#", "");
-                  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  // Lock body scroll when menu open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const mobileMenu =
+    open && typeof document !== "undefined"
+      ? createPortal(
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 9999,
+              backgroundColor: "#243D32",
+              color: "#FFFDF8",
+              overflowY: "auto",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "20px 24px",
+              }}
+            >
+              <Image
+                src="/images/logo.png"
+                alt="Мойлтын хүрхрээ"
+                width={120}
+                height={42}
+                className="h-8 w-auto object-contain brightness-0 invert"
+              />
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Хаах"
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "#FFFDF8",
+                  fontSize: 28,
+                  cursor: "pointer",
+                  padding: 8,
                 }}
-                className={`relative text-sm tracking-wide transition-colors py-1 cursor-pointer ${
-                  scrolled
-                    ? "text-darktext hover:text-forest"
-                    : "text-softwhite/90 hover:text-softwhite"
-                } ${isActive ? (scrolled ? "text-forest" : "text-softwhite") : ""}`}
               >
-                {it.label}
-                <svg
-                  className={`absolute left-0 -bottom-1 w-full h-2 transition-opacity duration-300 pointer-events-none ${
-                    isActive ? "opacity-100" : "opacity-0"
-                  }`}
-                  viewBox="0 0 100 8"
-                  preserveAspectRatio="none"
+                <X />
+              </button>
+            </div>
+            <nav
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 0,
+                padding: "8px 24px 40px",
+              }}
+            >
+              {items.map((it) => (
+                <a
+                  key={it.href}
+                  href={it.href}
+                  onClick={() => {
+                    // close after navigation starts
+                    setTimeout(() => setOpen(false), 100);
+                  }}
+                  style={{
+                    fontFamily: "var(--font-lora), serif",
+                    fontSize: 26,
+                    color: "#FFFDF8",
+                    textDecoration: "none",
+                    padding: "16px 0",
+                    borderBottom: "1px solid rgba(255,255,255,0.15)",
+                    display: "block",
+                  }}
                 >
-                  <path
-                    d="M0 4 Q 25 0, 50 4 T 100 4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </a>
-            );
-          })}
-        </nav>
+                  {it.label}
+                </a>
+              ))}
+            </nav>
+          </div>,
+          document.body
+        )
+      : null;
 
-        <div className="flex items-center gap-3">
-          <a
-            href={`tel:${resort.phone.replace(/\s/g, "")}`}
-            className={`hidden md:inline-flex items-center gap-2 text-sm ${
-              scrolled ? "text-forest" : "text-softwhite"
-            }`}
-          >
-            <Phone size={15} />
-            <span className="hidden xl:inline">{resort.phone}</span>
-          </a>
-          <a
-            href="#booking"
-            className="rounded-full bg-forest text-softwhite px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-medium hover:bg-moss transition-colors"
-          >
-            Захиалах
-          </a>
-          <button
-            type="button"
-            className={`lg:hidden p-2 -mr-2 ${scrolled ? "text-forest" : "text-softwhite"}`}
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Цэс"
-          >
-            {open ? <X /> : <Menu />}
-          </button>
-        </div>
-      </div>
+  return (
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-500 ${
+          scrolled
+            ? "bg-ivory/85 backdrop-blur-md shadow-sm py-2.5"
+            : "bg-transparent py-5"
+        }`}
+      >
+        <div className="mx-auto max-w-7xl px-5 md:px-6 flex items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3 shrink-0">
+            <Image
+              src="/images/logo.png"
+              alt="Мойлтын хүрхрээ"
+              width={480}
+              height={170}
+              className={`h-9 md:h-11 w-auto object-contain transition-all duration-300 ${
+                scrolled ? "" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+              }`}
+              priority
+            />
+          </Link>
 
-      {open && (
-        <div className="lg:hidden fixed inset-0 top-0 bg-forest text-softwhite z-[60] flex flex-col">
-          <div className="flex items-center justify-between px-6 py-5">
-            <span className="font-serif text-xl">Мойлтын хүрхрээ</span>
-            <button onClick={() => setOpen(false)} aria-label="Хаах">
-              <X />
+          <nav className="hidden lg:flex items-center gap-7">
+            {items.map((it) => {
+              const isActive = active === it.href.replace("#", "");
+              return (
+                <a
+                  key={it.href}
+                  href={it.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const id = it.href.replace("#", "");
+                    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className={`relative text-sm tracking-wide transition-colors py-1 cursor-pointer ${
+                    scrolled
+                      ? "text-darktext hover:text-forest"
+                      : "text-softwhite/90 hover:text-softwhite"
+                  } ${isActive ? (scrolled ? "text-forest" : "text-softwhite") : ""}`}
+                >
+                  {it.label}
+                  <svg
+                    className={`absolute left-0 -bottom-1 w-full h-2 transition-opacity duration-300 pointer-events-none ${
+                      isActive ? "opacity-100" : "opacity-0"
+                    }`}
+                    viewBox="0 0 100 8"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 4 Q 25 0, 50 4 T 100 4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </a>
+              );
+            })}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <a
+              href={`tel:${resort.phones[0]}`}
+              className={`hidden md:inline-flex items-center gap-2 text-sm ${
+                scrolled ? "text-forest" : "text-softwhite"
+              }`}
+            >
+              <Phone size={15} />
+              <span className="hidden xl:inline">{resort.phones[0]}</span>
+            </a>
+            <a
+              href="#booking"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="rounded-full bg-forest text-softwhite px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-medium hover:bg-moss transition-colors cursor-pointer"
+            >
+              Захиалах
+            </a>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Цэс"
+              className={`lg:hidden p-2 -mr-2 ${scrolled ? "text-forest" : "text-softwhite"}`}
+            >
+              {open ? <X /> : <Menu />}
             </button>
           </div>
-          <nav className="flex flex-col gap-5 px-6 mt-6">
-            {items.map((it) => (
-              <a
-                key={it.href}
-                href={it.href}
-                className="font-serif text-2xl border-b border-softwhite/15 pb-3 cursor-pointer"
-              >
-                {it.label}
-              </a>
-            ))}
-          </nav>
         </div>
-      )}
-    </header>
+      </header>
+      {mobileMenu}
+    </>
   );
 }
-

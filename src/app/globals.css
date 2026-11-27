@@ -21,6 +21,10 @@
   --foreground: #526057;
 }
 
+html, body {
+  overflow-x: clip;
+  max-width: 100%;
+}
 html {
   scroll-behavior: smooth;
 }

@@ -55,51 +55,51 @@ export function Accommodation() {
       <div
         ref={scroller}
         className="flex gap-6 overflow-x-auto no-scrollbar px-6 md:px-[calc((100vw-80rem)/2+1.5rem)] pb-6 snap-x snap-mandatory"
+        style={{ touchAction: "pan-x", WebkitOverflowScrolling: "touch" }}
       >
         {accommodations.map((a) => (
           <article
             key={a.slug}
             className="snap-start shrink-0 w-[300px] md:w-[360px] group"
           >
-            <button
-              onClick={() => setSelected(a.slug)}
-              className="block w-full text-left"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
-                <Image
-                  src={a.image}
-                  alt={a.name}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  style={{ objectPosition: "center 40%" }}
-                />
-                <div className="absolute bottom-4 left-4">
-                  <span className="bg-softwhite/90 text-forest text-xs px-3 py-1 rounded-full">
-                    {a.price} / хоног
-                  </span>
-                </div>
-              </div>
-              <div className="mt-5">
-                <h3 className="font-serif text-2xl text-forest">{a.name}</h3>
-                <div className="flex items-center gap-4 text-sm text-darktext/70 mt-2">
-                  <span className="flex items-center gap-1">
-                    <Users size={14} /> {a.guests}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Bed size={14} /> {a.beds}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Maximize2 size={14} /> {a.area}
-                  </span>
-                </div>
-                <p className="text-darktext/70 mt-3 text-sm leading-relaxed">
-                  {a.description}
-                </p>
-                <span className="inline-block mt-4 text-sm text-forest underline underline-offset-4 hover:text-moss">
-                  Дэлгэрэнгүй үзэх →
+            <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+              <Image
+                src={a.image}
+                alt={a.name}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                style={{ objectPosition: "center 40%" }}
+              />
+              <div className="absolute bottom-4 left-4">
+                <span className="bg-softwhite/90 text-forest text-xs px-3 py-1 rounded-full">
+                  {a.price} / хоног
                 </span>
               </div>
-            </button>
+            </div>
+            <div className="mt-5">
+              <h3 className="font-serif text-2xl text-forest">{a.name}</h3>
+              <div className="flex items-center gap-4 text-sm text-darktext/70 mt-2">
+                <span className="flex items-center gap-1">
+                  <Users size={14} /> {a.guests}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Bed size={14} /> {a.beds}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Maximize2 size={14} /> {a.area}
+                </span>
+              </div>
+              <p className="text-darktext/70 mt-3 text-sm leading-relaxed">
+                {a.description}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSelected(a.slug)}
+                className="mt-4 inline-flex items-center gap-1 text-sm text-forest underline underline-offset-4 hover:text-moss cursor-pointer py-2"
+              >
+                Дэлгэрэнгүй үзэх →
+              </button>
+            </div>
           </article>
         ))}
       </div>
