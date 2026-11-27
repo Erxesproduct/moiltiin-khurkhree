@@ -53,13 +53,15 @@ export function BookingPanel() {
             Ирэх өдөр
           </label>
           <div className="flex items-center gap-2 border-b border-forest/20 pb-2">
-            <Calendar size={18} className="text-forest" />
+            <Calendar size={18} className="text-forest shrink-0" />
             <input
               type="date"
               required
               value={checkIn}
+
               onChange={(e) => setCheckIn(e.target.value)}
-              className="bg-transparent outline-none w-full text-darktext"
+              onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
+              className="bg-transparent outline-none w-full text-darktext min-h-[44px] cursor-pointer"
             />
           </div>
         </div>
@@ -68,13 +70,15 @@ export function BookingPanel() {
             Буцах өдөр
           </label>
           <div className="flex items-center gap-2 border-b border-forest/20 pb-2">
-            <Calendar size={18} className="text-forest" />
+            <Calendar size={18} className="text-forest shrink-0" />
             <input
               type="date"
               required
               value={checkOut}
+
               onChange={(e) => setCheckOut(e.target.value)}
-              className="bg-transparent outline-none w-full text-darktext"
+              onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
+              className="bg-transparent outline-none w-full text-darktext min-h-[44px] cursor-pointer"
             />
           </div>
         </div>

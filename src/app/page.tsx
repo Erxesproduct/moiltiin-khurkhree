@@ -10,6 +10,7 @@ import { SeasonSelector } from "@/components/SeasonSelector";
 import { DayAtMoiltiin } from "@/components/DayAtMoiltiin";
 import { PlanEscape } from "@/components/PlanEscape";
 import { Events } from "@/components/Events";
+import { ReceptionHall } from "@/components/ReceptionHall";
 import { Gallery } from "@/components/Gallery";
 import { LocationContact } from "@/components/LocationContact";
 import { Footer } from "@/components/Footer";
@@ -37,6 +38,7 @@ export default function Home() {
       <PlanEscape />
       <RiverDivider />
       <Events />
+      <ReceptionHall />
       <Gallery />
       <LocationContact />
       <Footer />

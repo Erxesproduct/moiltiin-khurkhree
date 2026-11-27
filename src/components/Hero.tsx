@@ -35,7 +35,8 @@ export function Hero() {
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/55" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/60" />
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/50 to-transparent" />
 
       <div className="relative z-10 h-full flex flex-col justify-end pb-28 md:pb-36 px-6">
         <div className="mx-auto max-w-7xl w-full">
@@ -52,11 +53,12 @@ export function Hero() {
               fontWeight: 400,
               lineHeight: 1.12,
               letterSpacing: "-0.02em",
+              textShadow: "0 2px 18px rgba(0,0,0,0.35)",
             }}
           >
             Байгальд ойрхон,
             <br />
-            <span className="italic font-light">өөртөө илүү ойрхон.</span>
+            <span className="italic">өөртөө илүү ойрхон.</span>
           </h1>
           <p className="text-softwhite/85 text-base md:text-lg max-w-md mt-6 leading-relaxed">
             Хотын чимээнээс түр холдож, байгалийн сайханд хайртай
