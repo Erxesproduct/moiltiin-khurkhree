@@ -27,7 +27,7 @@ export function SeasonSelector() {
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="max-w-2xl">
-          <p className="text-xs tracking-[0.3em] uppercase text-softwhite/70 mb-6">
+          <p className="label-eyebrow text-softwhite/70 mb-6">
             УЛИРАЛ БҮР ӨӨРИЙН ГЭСЭН ИД ШИДТЭЙ
           </p>
           <h2
@@ -60,3 +60,4 @@ export function SeasonSelector() {
     </section>
   );
 }
+

@@ -26,7 +26,7 @@ export function Accommodation() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
-            <p className="text-xs tracking-[0.3em] uppercase text-moss mb-6">
+            <p className="label-eyebrow mb-6">
               02 / STAY WITH US
             </p>
             <h2 className="font-serif text-4xl md:text-6xl text-forest leading-[1.1]">
@@ -199,3 +199,4 @@ export function Accommodation() {
     </section>
   );
 }
+

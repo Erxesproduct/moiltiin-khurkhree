@@ -16,6 +16,7 @@ import { Footer } from "@/components/Footer";
 import { SoundControl } from "@/components/SoundControl";
 import { RiverDivider } from "@/components/RiverDivider";
 import { StickyBookingCTA } from "@/components/StickyBookingCTA";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export default function Home() {
   return (
@@ -41,6 +42,7 @@ export default function Home() {
       <Footer />
       <SoundControl />
       <StickyBookingCTA />
+      <ScrollReveal />
     </main>
   );
 }

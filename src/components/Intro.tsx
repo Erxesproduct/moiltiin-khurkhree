@@ -17,10 +17,10 @@ export function Intro() {
       <div className="mx-auto max-w-7xl relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5">
-            <p className="text-xs tracking-[0.3em] uppercase text-moss mb-6">
+            <p className="label-eyebrow mb-6">
               01 / DISCOVER MOILTIIN
             </p>
-            <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] text-forest">
+            <h2 className="heading-section reveal">
               Хотын чимээнээс хол,
               <br />
               байгалийн зүрхэнд.
@@ -56,3 +56,4 @@ export function Intro() {
     </section>
   );
 }
+

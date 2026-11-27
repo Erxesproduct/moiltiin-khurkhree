@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Lora, Manrope } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const lora = Lora({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-playfair",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-lora",
   display: "swap",
 });
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-manrope",
   display: "swap",
 });
 
@@ -34,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="mn" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="mn" className={`${lora.variable} ${manrope.variable}`}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   );

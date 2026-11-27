@@ -7,7 +7,7 @@ export function Dining() {
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5">
-            <p className="text-xs tracking-[0.3em] uppercase text-moss mb-6">
+            <p className="label-eyebrow mb-6">
               Хоол, амт
             </p>
             <h2 className="font-serif text-4xl md:text-6xl text-forest leading-[1.1]">
@@ -57,3 +57,4 @@ export function Dining() {
     </section>
   );
 }
+

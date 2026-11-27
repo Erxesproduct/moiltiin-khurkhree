@@ -45,7 +45,15 @@ export function Hero() {
               ТЭРЭЛЖ · МОНГОЛ
             </p>
           </div>
-          <h1 className="font-serif text-softwhite text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] max-w-4xl">
+          <h1
+            className="font-serif text-softwhite max-w-4xl"
+            style={{
+              fontSize: "clamp(2.25rem, 6vw, 5.5rem)",
+              fontWeight: 400,
+              lineHeight: 1.12,
+              letterSpacing: "-0.02em",
+            }}
+          >
             Байгальд ойрхон,
             <br />
             <span className="italic font-light">өөртөө илүү ойрхон.</span>
@@ -99,3 +107,4 @@ export function Hero() {
     </section>
   );
 }
+

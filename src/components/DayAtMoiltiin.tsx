@@ -32,7 +32,7 @@ export function DayAtMoiltiin() {
     <section className="py-28 md:py-40 px-6">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 max-w-2xl">
-          <p className="text-xs tracking-[0.3em] uppercase text-moss mb-6">
+          <p className="label-eyebrow mb-6">
             МОЙЛТЫН НЭГ ӨДӨР
           </p>
           <h2 className="font-serif text-4xl md:text-6xl text-forest leading-[1.1]">
@@ -74,7 +74,7 @@ export function DayAtMoiltiin() {
                   />
                 </div>
                 <div className="md:px-8">
-                  <p className="text-xs tracking-[0.3em] uppercase text-moss mb-3">
+                  <p className="label-eyebrow mb-3">
                     {m.time}
                   </p>
                   <h3 className="font-serif text-2xl md:text-3xl text-forest mb-3">
@@ -90,3 +90,4 @@ export function DayAtMoiltiin() {
     </section>
   );
 }
+

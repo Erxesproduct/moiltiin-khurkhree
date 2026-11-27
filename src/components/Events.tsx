@@ -17,7 +17,7 @@ export function Events() {
             />
           </div>
           <div>
-            <p className="text-xs tracking-[0.3em] uppercase text-moss mb-6">
+            <p className="label-eyebrow mb-6">
               04 / TOGETHER
             </p>
             <h2 className="font-serif text-4xl md:text-6xl text-forest leading-[1.1]">
@@ -58,3 +58,4 @@ export function Events() {
     </section>
   );
 }
+
